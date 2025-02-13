@@ -14,10 +14,6 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
 Visit https://e-commerce-chigisoft.vercel.app/ to view the hosted application
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## External packages used
 
 1. Tailwind css - for styling
