@@ -40,7 +40,7 @@ export class ProductsListComponent {
   maxPrice: number = 1000; // Adjust based on your product prices
   sliderOptions: any = {
     floor: 0,
-    ceil: 1000, // Adjust based on your product prices
+    ceil: 2000, // Adjust based on your product prices
     step: 10,
   };
 
