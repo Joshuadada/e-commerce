@@ -1,0 +1,15 @@
+<div class="fixed top-2 right-2 ml-2 space-y-2 z-50">
+    <div *ngFor="let notification of notifications$ | async" [@fade]
+        class="px-3 md:px-4 py-2 md:py-3 text-[0.5rem] sm:text-[0.6rem] md:text-xs rounded shadow-md text-white flex justify-between items-center max-w-[400px]"
+        [ngClass]="{
+           'bg-green-500': notification.type === 'success',
+           'bg-red-500': notification.type === 'error',
+           'bg-blue-500': notification.type === 'info',
+           'bg-yellow-500': notification.type === 'warning'
+         }">
+        <span>{{ notification.message }}</span>
+        <button (click)="dismiss(notification.id)" class="ml-4 text-white font-bold">
+            &times;
+        </button>
+    </div>
+</div>

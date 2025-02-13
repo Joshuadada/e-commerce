@@ -1,0 +1,99 @@
+<div class="relative w-full h-[75vh] max-h-[550px] overflow-hidden">
+  <div
+    class="absolute w-2/5 min-w-80 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 py-20 transition-opacity duration-1000"
+    *ngFor="let image of images; let i = index"
+    [ngClass]="{'opacity-100': i === currentIndex, 'opacity-0': i !== currentIndex}">
+    <img [src]="image" class="w-full h-full object-cover" />
+  </div>
+  <div class="absolute inset-0 bg-black opacity-80 flex items-center justify-center">
+    <div class="w-[80vw] max-w-[700px] text-center">
+      <h1 class="text-white text-xl sm:text-2xl md:text-4xl lg:text-6xl font-bold">Welcome to Chigisoft Store</h1>
+      <p class="text-gray-200 mt-6 text-xs md:text-sm italic">Your number one stop for every items...</p>
+    </div>
+  </div>
+</div>
+
+<div class="px-6 sm:px-12 md:px-20 lg:px-28 py-8 sm:py-12 md:py-16 bg-[#F7F6F0] rounded-lg">
+  <h3 class="text-center font-bold text-base sm:text-lg md:text-xl">Our Products</h3>
+
+  <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mt-5 sm:mt-6 md:mt-7">
+    <!-- Filter by search -->
+    <input (keyup)="filterProducts($event)" placeholder="Search products"
+      class="w-full sm:w-[250px] border border-[#e3e3e3] outline-none px-3 py-2 rounded-md text-[0.6rem] sm:text-xs md:text-sm text-gray-600" />
+
+
+
+    <div>
+      <div class="flex items-center gap-2">
+        <!-- Filter by Category -->
+        <div class="w-full sm:w-[160px]">
+          <select (change)="filterByCategory($event)"
+            class="w-full px-3 py-2 rounded-md border border-[#e3e3e3] outline-none text-[0.6rem] sm:text-xs md:text-sm text-gray-600">
+            <option value="">All Categories</option>
+            <option *ngFor="let category of availableCategories" [value]="category">{{ category }}</option>
+          </select>
+        </div>
+
+        <!-- Sort by Price -->
+        <div class="w-full sm:w-[160px]">
+          <select (change)="sortByPrice($event)"
+            class="w-full px-3 py-2 rounded-md border border-[#e3e3e3] outline-none text-[0.6rem] sm:text-xs md:text-sm text-gray-600">
+            <option value="">Sort by Price</option>
+            <option value="asc">Low to High</option>
+            <option value="desc">High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <ngx-slider [(value)]="minPrice" [(highValue)]="maxPrice" (valueChange)="filteredProducts()"
+        [options]="sliderOptions"></ngx-slider>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 sm:mt-7 md:mt-8">
+    <div *ngIf="products.length !== 0"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+      <div *ngFor="let product of products"
+        class="p-4 rounded-md shadow-md flex flex-col justify-between gap-4 transition-transform duration-300 hover:scale-105">
+        <div>
+          <img [src]="product.image" [alt]="product.title"
+            class="w-full h-48 object-contain mb-4 rounded-md transition-opacity duration-300 hover:opacity-80">
+          <h3 class="text-xs sm:text-sm md:text-base font-semibold">{{ product.title }}</h3>
+          <p class="text-gray-600 text-[0.6rem] sm:text-xs md:text-sm">{{ product.category }}</p>
+          <p class="text-green-600 font-bold text-[0.6rem] sm:text-xs md:text-sm">{{ product.price | currency:'$' }}</p>
+        </div>
+
+        <div class="flex items-center gap-3 justify-between">
+          <button (click)="addToCart(product)"
+            class="bg-blue-500 text-white px-3 py-2 rounded text-[0.6rem] sm:text-xs transition-all duration-300 hover:bg-blue-600">
+            Add to Cart
+          </button>
+
+          <img class="w-3 sm:w-4 md:w-5 cursor-pointer transition-transform duration-300 hover:scale-110"
+            src="icons/expand-icon.png" alt="Expand" (click)="openModal(product)">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="products.length === 0" class="text-center">
+      <p class="text-slate-700 text-[0.6rem] sm:text-xs md:text-sm">No products available!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="selectedProduct"
+  class="fixed inset-0 backdrop-blur-xs bg-black/50 flex items-center justify-center p-4 z-50" [@backdropAnimation]>
+  <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative" [@modalAnimation]>
+    <button (click)="closeModal()"
+      class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl">&times;</button>
+    <img [src]="selectedProduct.image" [alt]="selectedProduct.title" class="w-full h-64 object-contain mb-4 rounded-md">
+    <h3 class="text-lg font-semibold text-xs sm:text-sm md:text-base">{{ selectedProduct.title }}</h3>
+    <p class="text-gray-600 text-[0.6rem] sm:text-xs md:text-sm">{{ selectedProduct.category }}</p>
+    <p class="text-green-600 font-bold text-[0.6rem] sm:text-xs md:text-sm">{{ selectedProduct.price | currency:'$' }}
+    </p>
+    <p class="text-gray-700 mt-2 text-[0.6rem] sm:text-xs md:text-sm">{{ selectedProduct.description }}</p>
+  </div>
+</div>
