@@ -37,10 +37,10 @@ export class ProductsListComponent {
   originalProducts: any[] = [];
 
   minPrice: number = 0;
-  maxPrice: number = 1000; // Adjust based on your product prices
+  maxPrice: number = 2000;
   sliderOptions: any = {
     floor: 0,
-    ceil: 2000, // Adjust based on your product prices
+    ceil: 2000,
     step: 10,
   };
 
