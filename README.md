@@ -10,6 +10,10 @@ To install dependencies after cloning, run `npm install --force` or `npm install
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
 
+## Live url
+
+Visit https://e-commerce-chigisoft.vercel.app/ to view the hosted application
+
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
